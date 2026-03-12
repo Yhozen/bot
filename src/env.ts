@@ -6,6 +6,7 @@ export const env = createEnv({
     SLACK_BOT_TOKEN: z.string(),
     SLACK_SIGNING_SECRET: z.string(),
     REDIS_URL: z.url(),
+    AI_GATEWAY_API_KEY: z.string(),
   },
   experimental__runtimeEnv: true
 });
