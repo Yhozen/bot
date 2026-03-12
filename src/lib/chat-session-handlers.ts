@@ -7,6 +7,7 @@ import { durableChatSession } from "@/workflows/durable-chat-session";
 async function startSession(thread: Thread<ThreadState>, message: Message) {
   const run = await start(durableChatSession, [
     JSON.stringify({
+      // @ts-expect-error - thread is not typed
       thread: thread.toJSON(),
       message: message.toJSON(),
     }),
