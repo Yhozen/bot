@@ -8,6 +8,7 @@
         "@ai-sdk/openai": "^3.0.41",
         "@chat-adapter/slack": "^4.20.0",
         "@chat-adapter/state-redis": "^4.20.0",
+        "@chat-adapter/telegram": "^4.20.0",
         "@t3-oss/env-nextjs": "^0.13.10",
         "ai": "^6.0.116",
         "chat": "^4.20.0",
@@ -68,6 +69,8 @@
     "@chat-adapter/slack": ["@chat-adapter/slack@4.20.0", "", { "dependencies": { "@chat-adapter/shared": "4.20.0", "@slack/web-api": "^7.14.0", "chat": "4.20.0" } }, "sha512-pZruK/ndyXJcgwTQ7S9MjB31TE80REuMtcGGlZCX/iaPSZ2QYDhz2493MvtBiy2DY4dyNOk2eihsf1r9JzzhkQ=="],
 
     "@chat-adapter/state-redis": ["@chat-adapter/state-redis@4.20.0", "", { "dependencies": { "chat": "4.20.0", "redis": "^5.11.0" } }, "sha512-mSK85jpdZ135Yccw/3QY9uRUIpih1Yri/I6P3Y16xhH2ceDzCeKQPtdn1sBZqY6uC2yRs1PrijQ4O9ZZ0B9UfA=="],
+
+    "@chat-adapter/telegram": ["@chat-adapter/telegram@4.20.0", "", { "dependencies": { "@chat-adapter/shared": "4.20.0", "chat": "4.20.0" } }, "sha512-zNmTA6e+dy21sdYafe/V3Ytd5id9SeRweWOUERmg4OK2w8PXIsyniGusW1agd0vcl2ERQF/mRcuHLPVV379Mww=="],
 
     "@emnapi/runtime": ["@emnapi/runtime@1.8.1", "", { "dependencies": { "tslib": "^2.4.0" } }, "sha512-mehfKSMWjjNol8659Z8KxEMrdSJDDot5SXMq00dM8BN4o+CLNXQ0xH2V7EchNHV4RmbZLmmPdEaXZc5H2FXmDg=="],
 

@@ -1,14 +1,19 @@
 import { openai } from "@ai-sdk/openai";
 import { createSlackAdapter } from "@chat-adapter/slack";
 import { createRedisState } from "@chat-adapter/state-redis";
+import { createTelegramAdapter } from "@chat-adapter/telegram";
 import { ToolLoopAgent } from "ai";
 
 import { Chat, type Message, type Thread } from "chat";
 
+const telegram = createTelegramAdapter();
+const slack = createSlackAdapter();
+
 export const bot = new Chat({
   userName: "mybot",
   adapters: {
-    slack: createSlackAdapter(),
+    slack,
+    telegram,
   },
   state: createRedisState(),
 });
@@ -34,3 +39,7 @@ bot.onNewMention(async (thread, message) => {
 
 // Respond to follow-up messages in subscribed threads
 bot.onSubscribedMessage(handleMessage);
+
+// Call initialize() so polling can start in long-running local processes:
+void bot.initialize();
+console.log(`Telegram runtime mode: ${telegram.runtimeMode}`); // "webhook" | "polling"
