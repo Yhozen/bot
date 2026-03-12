@@ -1,6 +1,8 @@
+import { openai } from "@ai-sdk/openai";
 import { createSlackAdapter } from "@chat-adapter/slack";
 import { createRedisState } from "@chat-adapter/state-redis";
 import { ToolLoopAgent } from "ai";
+
 import { Chat, type Message, type Thread } from "chat";
 
 export const bot = new Chat({
@@ -11,15 +13,17 @@ export const bot = new Chat({
   state: createRedisState(),
 });
 
+const model = openai("gpt-5.2");
+
 const agent = new ToolLoopAgent({
-  model: "anthropic/claude-4.5-sonnet",
+  model,
   instructions: "You are a helpful assistant. You always say Hallo",
 });
 
 const handleMessage = async (thread: Thread, message: Message) => {
   await thread.startTyping();
-  const { text } = await agent.generate({ prompt: message.text });
-  await thread.post(text);
+  const { fullStream } = await agent.stream({ prompt: message.text });
+  await thread.post(fullStream);
 };
 
 // Respond when someone @mentions the bot
