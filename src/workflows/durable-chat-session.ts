@@ -1,7 +1,9 @@
 import { openai } from "@ai-sdk/openai";
-import { generateText } from "ai";
+import { streamText } from "ai";
 import {
+  type ChatElement,
   Message,
+  type PostableMessage,
   type SerializedMessage,
   type SerializedThread,
   ThreadImpl,
@@ -31,7 +33,10 @@ function mergeHistoryWithMessage(
   });
 }
 
-async function postAssistantMessage(thread: SerializedThread, text: string) {
+async function postAssistantMessage(
+  thread: SerializedThread,
+  text: string | PostableMessage | ChatElement,
+) {
   "use step";
 
   await bot.initialize();
@@ -63,14 +68,12 @@ async function runTurn(thread: SerializedThread, message: Message) {
     },
   );
 
-  const { text } = await generateText({
+  return streamText({
     model,
     system:
       "You are a helpful assistant in a chat thread. Keep replies concise, practical, and grounded in the conversation history.",
     prompt,
   });
-
-  return text;
 }
 
 async function processMessage(thread: SerializedThread, message: Message) {
@@ -82,7 +85,7 @@ async function processMessage(thread: SerializedThread, message: Message) {
   }
 
   const reply = await runTurn(thread, message);
-  await postAssistantMessage(thread, reply);
+  await postAssistantMessage(thread, reply.fullStream);
   return true;
 }
 

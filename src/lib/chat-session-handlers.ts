@@ -17,6 +17,7 @@ async function startSession(thread: Thread<ThreadState>, message: Message) {
 }
 
 async function routeTurn(thread: Thread<ThreadState>, message: Message) {
+  await thread.startTyping();
   const state = await thread.state;
 
   if (!state?.runId) {
