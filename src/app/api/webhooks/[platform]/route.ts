@@ -1,3 +1,4 @@
+import "@/lib/chat-session-handlers";
 import { after } from "next/server";
 import { bot } from "@/lib/bot";
 
